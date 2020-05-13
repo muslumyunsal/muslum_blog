@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <a class="navbar-brand" href="{% url 'index' %}">Müslüm'ün Blogu</a>
+    <!--linki bu şekilde vererek dinamik yönlendirme yaptık. İsme göre yönlendirme yaptık. Proje büyüdükçe ihtiyaç olacak.-->
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+      <li class="nav-item active">
+        <a class="nav-link" href="/about">Hakkımızda</a>
+      </li>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          İçerikler
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="{% url 'article:articles' %}">Makaleler</a>
+          <a class="dropdown-item" href="/videos">Videolar</a>
+        </div>
+      </li>
+    </ul>
+    <ul class="navbar-nav ml-auto">     
+      {% if request.user.is_authenticated %}
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'user:logout' %}">Çıkış Yap </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'article:dashboard' %}">Kontrol Paneli </a>
+        </li>
+      {% else %}
+        <li class="nav-item active">
+          <a class="nav-link" href="/user/login">Giriş Yap </a>
+        </li>
+        <li class="nav-item active">
+          <a class="nav-link" href="/user/register">Kayıt Ol </a>
+        </li>
+      {% endif %}
+    </ul>
+  </div>
+</nav>

@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+{% load crispy_forms_tags %}
+
+    <style>
+        .asteriskField {
+        display: none;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-md-6 offset-md-3">
+            <h3>Kayıt Ol</h3>
+            <hr>
+            <form method="post">
+                {% csrf_token %} <!--Bu kısım sitemize yapılan atakları engellemek için kullandığımız alan. GÜVENLİK!!! HER FORMA MUTLAKA UYGULA!!!-->
+                {{form|crispy}}
+                <br>
+                <button type="submit" class="btn btn-dark">Kayıt Ol</button>
+            </form>
+        </div>
+    </div>
+    <br><br><br>
+{% endblock body %}
+    

@@ -1,0 +1,58 @@
+{% extends 'layout.html' %}
+
+
+{% block body %}
+<div class="row">
+    <div class="col-lg-8">
+        <h2 class="mt-4">{{article.title}}</h2>
+        <p class="lead">
+            Yazar: {{article.author.username}}
+        </p>
+        <hr>
+        <p>Oluşturma Tarihi: {{article.created_date}}</p>
+        <hr>
+        
+        {% if article.article_image %}
+        <img class="img-fluid rounded" src="{{article.article_image.url}}" alt="{{article.title}}">
+        {% endif %}
+        <p> <strong> {{article.summary}} </strong> </p>
+        <p>{{article.content|safe}}</p>
+        <hr>
+        <h4 style="color: rgba(0, 0, 0, 0.5); text-align: center;">Yorumlar</h4><br>
+        
+        {% if comments %}         
+            {% for comment in comments %}
+                <div class="media mb-4">
+                    <!-- <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt=""> -->
+                    <div class="media-body">
+                    <h5 class="mt-0">{{comment.comment_author}}</h5>
+                    <small style="color: rgba(0, 0, 0, 0.5);">{{comment.comment_date}}</small> <br>
+                    {{comment.comment_content}}
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="alert alert-warning">
+                Bu makaleye henüz yorum yazılmamış. İlk yorum yazan siz olun!
+            </div>
+        {% endif %}
+
+        <div class="card my-4">
+            <h5 class="card-header">Yorum Ekle:</h5>
+            <div class="card-body">
+              <form method="post" action="/articles/comment/{{article.id}}">
+                {% csrf_token %}
+                <div class="form-group">
+                    <input name="comment_author" type="text" class="form-control" id="formGroupExampleInput" placeholder="İsminizi Giriniz...">
+                </div>
+                <div class="form-group">
+                    <textarea name="comment_content" class="form-control" rows="3" placeholder="Yorumunuzu Giriniz..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-dark">Ekle</button>
+              </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock body %}
+    
